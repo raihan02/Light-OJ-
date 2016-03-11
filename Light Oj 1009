@@ -1,0 +1,106 @@
+#include <bits/stdc++.h>
+using namespace std;
+ 
+ 
+#define max1 100010
+typedef map <int , int> mm;
+typedef  vector <int> vc;
+typedef long long int ll;
+vc node[max1];
+#define G -1
+#define B 1
+#define W 0
+int x , y;
+queue<int> mq;
+mm  mp;
+int grap_col[max1];
+int maxi (int d , int p)
+{
+    if(d > p)
+        return d;
+    else
+        return p;
+}
+void bfs_algo (int source)
+{
+ 
+    int u , v;
+    grap_col[source] = B;
+    mq.push(source);
+ 
+    while(!mq.empty())
+    {
+        u =  mq.front();
+        mq.pop();
+ 
+ 
+        for(int i = 0; i < node[u].size(); i++)
+        {
+           v = node[u][i];
+ 
+           if(grap_col[v] == G)
+           {
+               if(grap_col[u] == B)
+               {
+                   x++;
+                   grap_col[v] = W;
+               }
+               else
+               {
+                   y++;
+                   grap_col[v] = B;
+               }
+ 
+               mq.push(v);
+           }
+        }
+    }
+ 
+ 
+}
+int main()
+{
+     int tes , o = 0;
+ 
+     cin >> tes;
+ 
+     while(tes--)
+     {
+         o++;
+         int p , a ,b , in = 0;
+         cin >> p;
+         mp.clear();
+ 
+         for(int i = 1; i <= p; i++)
+         {
+             cin>> a >> b;
+             if(!mp[a])
+             {
+                 mp[a] = ++in;
+                 node[mp[a]].clear();
+             }
+             if(!mp[b])
+             {
+                 mp[b] = ++in;
+                 node[mp[b]].clear();
+             }
+             node[mp[a]].push_back(mp[b]);
+             node[mp[b]].push_back(mp[a]);
+         }
+        memset(grap_col , G , sizeof grap_col);
+        ll  sum = 0;
+         for(int i =1; i <= in; i++)
+         {
+             if(grap_col[i] != G)
+                continue;
+             x = 0 ,y = 1;
+             bfs_algo(i);
+           sum = sum + maxi(x , y);
+         }
+ 
+ 
+      printf("Case %d: %lld\n",o , sum);
+ 
+     }
+ 
+}
