@@ -1,0 +1,63 @@
+#include <bits/stdc++.h>
+using namespace std;
+char s[30][30];
+int dp[30][30];
+void guilty (int i ,int j,int r ,int c)
+{
+    if(i > r or j > c or i <= 0 or j <= 0) 
+        return;
+
+        if(dp[i][j] != -1)
+            return;
+
+        else if(s[i][j] == '.' or s[i][j] == '@'){
+            dp[i][j] = 1;
+
+        guilty(i , j + 1 , r , c);
+        guilty(i - 1 , j , r , c);
+        guilty(i , j - 1 , r , c);
+         guilty(i + 1, j , r, c);
+
+        }
+
+        else if(s[i][j] == '#') return;
+
+
+}
+int main()
+{
+    int tes , p = 0;
+    cin >> tes;
+
+    while(tes--)
+    {
+        memset(dp , -1 , sizeof(dp));
+        p++;
+        int a , b , x , y;
+        cin >> a >> b;
+
+       for(int i = 1; i <= b; i++)
+        for(int j = 1; j <= a; j++)
+       {
+         cin >> s[i][j];
+
+         if(s[i][j] == '@')
+         {
+             x = i;
+             y = j;
+         }
+       }
+        guilty(x , y , b, a);
+        int c = 0;
+        for(int i = 1; i <= b; i++){
+            for(int j = 1 ; j <= a; j++){
+              if(dp[i][j] == 1)
+                c++;
+
+            }
+
+        }
+         printf("Case %d: %d\n", p , c);
+
+    }
+}
