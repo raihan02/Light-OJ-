@@ -1,0 +1,82 @@
+#include <iostream>
+#include <cstdio>
+#include <deque>
+using namespace std;
+int main()
+{
+    deque <int> dq;
+    int m , n , x, tes;
+    scanf("%d", &tes);
+    int p = 0;
+ 
+    while(tes--)
+    {
+        string s;
+        p++;
+         printf("Case %d:\n", p);
+        cin >> m >> n;
+        for(int i = 1; i <= n; i++)
+        {
+            cin >> s;
+            if(s == "pushLeft")
+            {
+                int k;
+                cin >> k;
+                if(dq.size() == m)
+                {
+                    printf("The queue is full\n");
+                    continue;
+                }
+                else
+                {
+                    printf("Pushed in left: %d\n",k);
+                    dq.push_front(k);
+                }
+ 
+            }
+            if(s == "pushRight")
+            {
+                int k;
+                cin >> k;
+                if(dq.size() == m)
+                {
+                    printf("The queue is full\n");
+                    continue;
+                }
+                else
+                {
+                    printf("Pushed in right: %d\n",k);
+                    dq.push_back(k);
+                }
+ 
+            }
+            else if(s == "popLeft")
+            {
+                if(dq.size() == 0)
+                    printf("The queue is empty\n");
+ 
+                else
+                {
+                    printf("Popped from left: %d\n", dq.front());
+                    dq.pop_front();
+                }
+            }
+ 
+            else if(s == "popRight")
+            {
+                if(dq.size() == 0)
+                    printf("The queue is empty\n");
+ 
+                else
+                {
+                    printf("Popped from right: %d\n", dq.back());
+                    dq.pop_back();
+                }
+            }
+ 
+ 
+        }
+        dq.clear();
+    }
+ 
+}
