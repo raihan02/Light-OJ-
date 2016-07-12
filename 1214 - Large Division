@@ -1,0 +1,32 @@
+#include <bits/stdc++.h>
+#define sc scanf
+#define pf printf
+#define nl printf("\n")
+typedef long long int ll;
+using namespace std;
+
+int main()
+{
+  string s;
+  ll tes, n , o = 0;
+  sc("%lld", &tes);
+  while(tes--)
+  {
+      o++;
+      cin >> s >> n;
+      ll x = 0;
+      while(s[0] == '-')
+        s.erase(s.begin());
+      for(int i = 0; i < s.length(); i++)
+      {
+          x = x * 10 + s[i] - '0';
+
+          x = x % n;
+      }
+
+   if(x == 0)
+    pf("Case %lld: divisible\n", o);
+   else
+    pf("Case %lld: not divisible\n", o);
+  }
+}
