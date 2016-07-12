@@ -1,0 +1,104 @@
+#include <bits/stdc++.h>
+typedef long long int ll;
+using namespace std;
+ll convert (string a)
+{
+    ll res= 0;
+ 
+    for(int i = 0; i < a.size(); i++)
+    {
+        res =2  * res  +  a[i] - 48;
+    }
+ 
+    return res;
+}
+typedef long long int ll;
+int main()
+{
+    string s , s1;
+    int tes;
+    int o = 0;
+    cin>> tes;
+    getchar();
+    while(tes--)
+    {
+        o++;
+        getline(cin , s);
+        getline(cin,s1);
+        vector <string> vs , vk;
+        vector<ll> vp , vt;
+        string temp = "";
+        for(int i = 0; i < s.length(); i++)
+        {
+            if(s[i] != '.')
+                temp += s[i];
+ 
+            if(s[i] == '.')
+            {
+                vs.push_back(temp);
+                temp = "";
+            }
+        }
+        temp = "";
+        reverse(s.begin(), s.end());
+        for(int i = 0; i < vs.size(); i++)
+        {
+            if(s[i] == '.')
+                break;
+            temp += s[i];
+        }
+        reverse(temp.begin(), temp.end());
+        vs.push_back(temp);
+        temp = "";
+          for(int i = 0; i < s1.length(); i++)
+        {
+            if(s1[i] != '.')
+                temp += s1[i];
+ 
+            if(s1[i] == '.')
+            {
+                vk.push_back(temp);
+                temp = "";
+            }
+        }
+        temp = "";
+        reverse(s1.begin(), s1.end());
+        for(int i = 0; i < s1.length(); i++)
+        {
+            if(s1[i] == '.')
+                break;
+            temp += s1[i];
+        }
+        reverse(temp.begin(), temp.end());
+        vk.push_back(temp);
+        temp = "";
+        for(int i = 0; i < vs.size(); i++)
+        {
+          ll sum = 0;
+          for(int k = 0; k < vs[i].size(); k++)
+          {
+              sum = sum * 10 + vs[i][k] - 48;
+          }
+          vp.push_back(sum);
+        }
+        for(int i = 0; i < vk.size(); i++)
+        {
+            vt.push_back(convert(vk[i]));
+        }
+        int c = 0;
+        for(int i = 0; i < vt.size(); i++)
+        {
+            if(vp[i] == vt[i])
+                c++;
+        }
+        if(c == vt.size())
+            printf("Case %d: Yes\n",o);
+        else
+            printf("Case %d: No\n", o);
+     vt.clear();
+     vs.clear();
+     vp.clear();
+     vk.clear();
+    }
+ 
+}
