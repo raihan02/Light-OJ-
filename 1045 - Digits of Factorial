@@ -1,0 +1,23 @@
+#include <bits/stdc++.h>
+using namespace std;
+typedef long long int ll;
+double arr[1000007];
+int main()
+{
+    for(int i = 2; i <= 1000000; i++)
+        arr[i] = arr[i - 1] + log10(i);
+    int tes;
+    cin >> tes;
+    int o =0;
+    while(tes--)
+    {
+        o++;
+        double ans;
+        ll a, b;
+        cin >> a >> b;
+        ans = log10(b);
+        ans = floor(arr[a] / ans) + 1;
+
+        printf("Case %d: %lld\n", o, (ll)ans);
+    }
+}
