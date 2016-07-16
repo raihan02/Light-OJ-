@@ -1,0 +1,29 @@
+#include <bits/stdc++.h>
+using namespace std;
+typedef long long int ll;
+int main()
+{
+    string s;
+    ll n;
+    int tes, o = 0;
+    cin >> tes;
+    while(tes--)
+    {
+        o++;
+        cin >> n;
+        cin >> s;
+        string s1 = "";
+        int c = 0;
+       ll sum = 0;
+       for(int i = 0; ;i++)
+       {
+           s1 += s;
+           sum = sum * 10 + s1[i] - '0';
+           sum = sum % n;
+           if(sum == 0)
+            break;
+           c++;
+       }
+      printf("Case %d: %d\n",o, c + 1);
+    }
+}
