@@ -1,0 +1,48 @@
+#include <bits/stdc++.h>
+using namespace std;
+typedef long long int ll;
+int main()
+{
+   ios_base:: sync_with_stdio(false);
+   cin.tie(NULL);
+   int tes , o = 0;
+   cin >> tes;
+
+   while(tes--)
+   {
+       o++;
+       vector<ll> vc , vt;
+
+       set<ll> st;
+       ll n , k;
+       cin >> n;
+       for(int i = 0; i < n; i++)
+       {
+           cin >>  k;
+           vc.push_back(k);
+       }
+        for(int i = vc.size() - 1; i > 0; --i)
+        {
+            vc[i] -= vc[i - 1];
+        }
+        
+
+        ll max1 = *max_element(vc.begin(), vc.end());
+        ll c = max1 + count(vc.begin(), vc.end(), max1) - 1;
+        ll ck = min(max1 + 1, c);
+        printf("Case %d: %lld\n",o, ck);
+        ///cout<<c<<endl;
+
+
+        vc.clear();
+        vt.clear();
+
+
+
+   }
+
+
+
+
+
+}
