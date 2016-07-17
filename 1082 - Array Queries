@@ -1,0 +1,66 @@
+#include <bits/stdc++.h>
+using namespace std;
+#define mx 100005
+#define MAX 999999
+int num[mx];
+int store[mx * 4];
+int p , q;
+void build_Segment(int st , int en , int control)
+{
+
+    if(st == en)
+    {
+        store[control] = num[st];
+        return;
+    }
+
+    int mid = (st + en) / 2;
+
+    int x = control * 2;
+    int y = control * 2 + 1;
+
+    build_Segment(st , mid , x);
+    build_Segment(mid + 1, en , y);
+    store[control] = min(store[x] , store[y]);
+
+}
+int Query_Segment(int st , int en , int control)
+{
+     if(st > q || en < p)return MAX;
+    if(st >= p && en <= q)return store[control];
+
+    int mid = (st + en ) / 2;
+    int x = control * 2;
+    int y = control * 2 + 1;
+    int first = Query_Segment(st , mid, x);
+    int second =Query_Segment(mid + 1, en , y);
+    return min(first, second);
+}
+int main()
+{
+
+    int tes, o = 0;
+    scanf("%d", &tes);
+    while(tes--)
+    {
+        o++;
+        int m , query;
+
+        scanf("%d %d", &m, &query);
+
+        for(int i = 1; i <= m; i++)
+        {
+            scanf("%d", &num[i]);
+        }
+
+        build_Segment(1,m,1);
+        printf("Case %d:\n",o);
+      while(query--)
+      {
+          scanf("%d %d", &p, &q);
+          printf("%d\n", Query_Segment(1,m,1));
+
+      }
+    }
+
+}
