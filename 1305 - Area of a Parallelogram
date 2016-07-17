@@ -1,0 +1,22 @@
+#include <bits/stdc++.h>
+using namespace std;
+int main()
+{
+   int tes, o = 0;
+   cin >>tes;
+ 
+   while(tes--)
+   {
+       o++;
+     int ax , bx ,cx ,ay,by, cy , dx , dy , area;
+ 
+     cin >>ax >>ay >>bx >>by >>cx >>cy;
+     dx = (ax + cx) - bx;
+     dy = ay +cy - by;
+     area = (ax * (by - cy) + bx * (cy - ay) + cx * (ay - by) );
+ 
+     printf("Case %d: %d %d %d\n",o,dx ,dy , abs(area));
+   }
+ 
+ 
+}
