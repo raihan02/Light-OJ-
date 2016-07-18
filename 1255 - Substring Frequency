@@ -1,0 +1,58 @@
+#include <bits/stdc++.h>
+using namespace std;
+#define mx 1000000
+int prefix[mx];
+void setPrefix(string s)
+{
+    int i = 0 , j = -1;
+    prefix[0] = -1;
+    int len =  s.length();
+    while(i < len)
+    {
+        while(j >=0 and s[i] != s[j])
+        {
+            j = prefix[j];
+        }
+        i++;
+        j++;
+        prefix[i] = j;
+    }
+}
+int kmp_algorithm(string s , string s1)
+{
+    int n = s.length();
+    int m = s1.length();
+   int i = 0 , j = 0;
+
+   setPrefix(s1);
+   int c = 0;
+   while(i < n)
+   {
+       while(j >= 0 and s[i] != s1[j])
+       {
+           j = prefix[j];
+       }
+       i++;
+       j++;
+       if(j == m)
+       {
+           c++;
+       }
+   }
+   return c;
+
+}
+int main()
+{
+    int tes;
+    cin >> tes;
+    int o = 0;
+    while(tes--)
+    {
+        o++;
+        string s, s1;
+        cin >> s >> s1;
+
+        printf("Case %d: %d\n", o, kmp_algorithm(s,s1));
+    }
+}
