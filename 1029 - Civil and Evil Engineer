@@ -1,0 +1,102 @@
+ http://lightoj.com/volume_showproblem.php?problem=1029&language=english&type=pdf
+#include <bits/stdc++.h>
+using namespace std;
+typedef pair<int, int> pi;
+typedef vector<pi> vc;
+
+int arr[10005];
+vc vertex[10005];
+priority_queue <pi > pq;
+void prims_algo1 (int src)
+{
+    arr[src] = 1;
+    for(int i = 0; i < vertex[src].size(); i++)
+    {
+         pi v = vertex[src][i];
+         if(arr[v.first] == -1)
+         {
+             pq.push(make_pair(-v.second , -v.first));
+         }
+    }
+}
+
+void prims_algo2 (int src)
+{
+    arr[src] = 1;
+    for(int i = 0; i < vertex[src].size(); i++)
+    {
+         pi v = vertex[src][i];
+         if(arr[v.first] == -1)
+         {
+             pq.push(make_pair(v.second , v.first));
+         }
+    }
+}
+int main()
+{
+    ios_base :: sync_with_stdio(0);
+    cin.tie(0);
+    int tes;
+    cin >> tes;
+     int o = 0;
+    while(tes--)
+    {
+        o++;
+        int n;
+
+        cin >> n;
+        int a, b , cost;
+        while(cin >> a >> b >> cost)
+        {
+            if(a == 0 and b == 0 and cost == 0)
+                break;
+            vertex[a].push_back(make_pair(b , cost));
+            vertex[b].push_back(make_pair(a , cost));
+        }
+        memset(arr , -1, sizeof (arr));
+
+        prims_algo1(0);
+        int mst_min_cost1 = 0;
+        while(pq.size())
+        {
+            pi ff = pq.top();
+            pq.pop();
+            int uu1 = -ff.second , cst1 = -ff.first;
+
+            if(arr[uu1] == -1)
+            {
+                mst_min_cost1 += cst1;
+                prims_algo1(uu1);
+            }
+        }
+
+        memset(arr, -1, sizeof(arr));
+        prims_algo2(0);
+        int mst_max_cost = 0;
+
+        while(pq.size())
+        {
+            pi xx = pq.top();
+            pq.pop();
+            int uu2 = xx.second , cst2 = xx.first;
+
+            if(arr[uu2] == -1)
+            {
+                 mst_max_cost += cst2;
+                 prims_algo2(uu2);
+            }
+        }
+
+        int res = mst_max_cost + mst_min_cost1;
+
+        if(res % 2 == 0)
+            printf("Case %d: %d\n", o, res / 2);
+        else
+           printf("Case %d: %d/2\n" ,o, res);
+
+           for(int i = 0;  i < n + 1 ; i++)
+             vertex[i].clear();
+
+    }
+   return 0;
+}
