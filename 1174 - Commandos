@@ -1,0 +1,92 @@
+#include <bits/stdc++.h>
+using namespace std;
+typedef pair <int , int> pi;
+typedef vector<int> vc;
+vc vertex[1005];
+int dis1[1005];
+int dis2[1005];
+void bfs_algo1(int src)
+{
+    memset(dis1,  -1 , sizeof(dis1));
+    dis1[src]  = 0;
+    queue <int> q;
+
+    q.push(src);
+    while(!q.empty())
+    {
+        int u = q.front();
+        q.pop();
+
+        for(int i = 0; i < vertex[u].size(); i++)
+        {
+            int v = vertex[u][i];
+
+            if(dis1[v] == -1)
+            {
+                dis1[v] = dis1[u] + 1;
+                         q.push(v);
+            }
+        }
+    }
+}
+void bfs_algo2(int src)
+{
+    memset(dis2,  -1 , sizeof(dis2));
+    dis2[src]  = 0;
+    queue <int> q;
+
+    q.push(src);
+    while(!q.empty())
+    {
+        int u = q.front();
+        q.pop();
+
+        for(int i = 0; i < vertex[u].size(); i++)
+        {
+            int v = vertex[u][i];
+
+            if(dis2[v] == -1)
+            {
+                dis2[v] = dis2[u] + 1;
+                         q.push(v);
+            }
+        }
+    }
+}
+
+int main()
+{
+    ios_base::sync_with_stdio(0);
+    cin.tie(0);
+    int tes , o = 0;
+    cin >> tes;
+    while(tes--)
+    {
+        o++;
+        int a, b;
+        cin >> a >> b;
+        for(int i = 0; i < b; i++)
+        {
+            int x, y;
+
+            cin >> x >> y;
+            vertex[x].push_back(y);
+            vertex[y].push_back(x);
+        }
+        int src,  des;
+        cin >> src >> des;
+        bfs_algo1(src);
+        bfs_algo2(des);
+       int mxx = 0;
+        for(int i = 0; i < a; i++)
+            ///cout<<dis1[i]<< endl;
+        {
+            mxx = max(mxx ,dis1[i] + dis2[i]);
+        }
+        cout<<"Case "<<o<<": ";
+        cout<<mxx<< endl;
+
+        for(int i = 0; i < a; i++)
+            vertex[i].clear();
+    }
+}
