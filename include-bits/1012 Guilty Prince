@@ -1,0 +1,79 @@
+#include <bits/stdc++.h>
+using namespace std;
+char maze[100][100];
+int reached[101][101];
+int fx[] = {0 , 1 , 0, -1};
+int fy[] = {-1 , 0 , 1, 0};
+int row , col;
+void dfs_flood_fill (int x , int y)
+{
+    reached[x][y] = 1;
+
+    for(int i = 0; i < 4; i++)
+    {
+       int a, b;
+
+       a = x + fx[i];
+       b = y + fy[i];
+
+       if(a >= 0 and a < row and b >= 0 and b < col and reached[a][b] == 0 and maze[a][b] != '#')
+       {
+           reached[a][b] = 1;
+           dfs_flood_fill(a , b);
+
+       }
+    }
+}
+int main()
+{
+    ios_base:: sync_with_stdio(0);
+    cin.tie(0);
+    int tes;
+    cin >> tes;
+    int o = 0;
+    while(tes--)
+    {
+        o++;
+        cin >> col >> row;
+        for(int i = 0; i < row; i++)
+        {
+            for(int j = 0; j < col; j++)
+            {
+                cin >> maze[i][j];
+            }
+        }
+        int c = 0;
+        int x , y;
+        for(int i = 0; i < row; i++)
+        {
+            for(int j = 0; j < col; j++)
+            {
+                if(maze[i][j] == '@')
+                {
+                    x = i;
+                    y = j;
+                    break;
+                }
+            }
+
+        }
+
+        memset(reached , 0 , sizeof reached);
+        dfs_flood_fill(x, y);
+         int cnt = 0;
+        for(int i = 0; i < row; i++)
+        {
+            for(int j = 0; j < col; j++)
+            {
+                if(reached[i][j] == 1)
+                    cnt++;
+            }
+
+        }
+
+        cout<< "Case " << o << ": " << cnt<< endl;
+    }
+
+
+
+}
