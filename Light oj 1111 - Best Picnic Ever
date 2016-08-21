@@ -1,0 +1,67 @@
+#include <bits/stdc++.h>
+using namespace std;
+int reach[1005];
+vector<int> vertex[1005];
+int dis[1005];
+int arr[1005];
+int main()
+{
+    int tes , o = 0;
+    scanf("%d", &tes);
+
+    while(tes--)
+    {
+        memset(reach , 0, sizeof reach);
+        o++;
+        int k ,n , m;
+        scanf("%d %d %d", &k , &n, &m);
+        for(int i = 0; i < k; i++)
+        {
+            //cin >> arr[i];
+           scanf("%d" , &arr[i]);
+        }
+        for(int i = 0; i < m; i++)
+        {
+            int a, b;
+            scanf("%d %d", &a, &b);
+            vertex[a].push_back(b);
+        }
+
+        for(int i = 0; i < k; i++)
+        {
+           memset(dis , -1 , sizeof dis);
+           dis[arr[i]] = 0;
+           reach[arr[i]]++;
+           queue<int> q;
+           q.push(arr[i]);
+
+           while(!q.empty())
+           {
+               int u = q.front();
+               q.pop();
+
+               for(int i = 0; i < vertex[u].size(); i++)
+               {
+                   int v = vertex[u][i];
+                   if(dis[v] == -1)
+                   {
+                       reach[v]++;
+                       dis[v] = dis[u] + 1;
+                       q.push(v);
+                   }
+               }
+           }
+
+        }
+        int cnt = 0;
+        for(int i = 1; i <= n; i++)
+        {
+            if(reach[i] == k)
+                cnt++;
+        }
+        printf("Case %d: %d\n", o, cnt);
+        for(int i = 1; i <= n; i++)
+            vertex[i].clear();
+
+    }
+}
