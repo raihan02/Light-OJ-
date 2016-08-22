@@ -1,0 +1,93 @@
+#include <bits/stdc++.h>
+using namespace std;
+typedef pair<int , int> pi;
+int row;
+int visit[15][15];
+char maze[15][15];
+int fa[] = {1, -1, 0, 0};
+int fb[] = {0, 0, -1, 1};
+int bfs (int a,  int b , int c , int d)
+{
+    memset(visit , 0, sizeof visit);
+    int dis[row + 1][row + 1];
+    dis[a][b] = 0;
+    visit[a][b] = 1;
+    queue<pi> q;
+    q.push(make_pair(a , b));
+
+    while(q.empty()== 0)
+    {
+        int x , y;
+        x = q.front().first;
+        y = q.front().second;
+        q.pop();
+
+        for(int i = 0; i < 4; i++)
+        {
+            int xx, yy;
+            xx = x + fa[i];
+            yy = y + fb[i];
+
+             if(xx >= 0 and xx < row and yy >= 0 and yy < row and visit[xx][yy] == 0 and maze[xx][yy] == '.')
+         {
+
+            visit[xx][yy] = 1;
+                q.push(make_pair(xx,yy));
+                dis[xx][yy] = dis[x][y] + 1;
+            }
+            if(xx == c && yy == d)
+            {
+                return dis[x][y] + 1;
+            }
+        }
+    }
+    return -1;
+
+}
+int main()
+{
+    int o = 0 ,tes , s1[150] , s2[150] , p;
+    scanf(" %d", &tes);
+    while(tes--)
+    {
+        o++;
+        scanf(" %d", &row);
+        int c = 64;
+        vector<char> vc;
+
+        for(int i = 0; i < row; i++)
+        {
+            for(int j = 0; j < row; j++)
+            {
+                scanf(" %c", &maze[i][j]);
+                if(maze[i][j] >= 'A' && maze[i][j] <= 'Z')
+                {
+                    c++;
+                    p = maze[i][j];
+
+                    s1[p] = i;
+                    s2[p] = j;
+                }
+            }
+        }
+        int sum = 0 , d;
+        for(int i = 65;  i < c; i++)
+        {
+           d = bfs(s1[i],s2[i],s1[i +1], s2[i + 1]);
+           maze[s1[i]][s2[i]] = '.';
+
+              if(d == -1)
+              {
+                  sum = -1;
+                  break;
+              }
+              else
+                sum += d;
+        }
+
+        if(sum == -1)
+            printf("Case %d: Impossible\n", o);
+        else
+            printf("Case %d: %d\n", o, sum);
+    }
+}
