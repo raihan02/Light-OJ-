@@ -1,0 +1,81 @@
+#include <bits/stdc++.h>
+using namespace std;
+vector<int> v[10005];
+int c[100005];
+bool Top_sort(int total)
+{
+    int ans = total;
+    int cnt = 0;
+    queue<int> q;
+    for(int i = 1; i <= total; i++)
+    {
+        if(c[i] == 0)
+        {
+            cnt++;
+            q.push(i);
+        }
+    }
+ 
+    while(!q.empty())
+    {
+        int u = q.front();
+        q.pop();
+        for(int i = 0; i < v[u].size(); i++)
+        {
+            int vx = v[u][i];
+            c[vx]--;
+            if(c[vx] == 0)
+            {
+                cnt++;
+                q.push(vx);
+            }
+        }
+ 
+    }
+ 
+    if(cnt == ans)
+        return true;
+    else
+        return false;
+}
+int main()
+{
+    int tes , o = 0;
+    cin >> tes;
+ 
+    while(tes--)
+    {
+        o++;
+        int q;
+        cin >> q;
+        string a;
+        string b;
+        int in = 1;
+        map< string, int> mp;
+        memset(c, 0, sizeof c);
+        for(int i = 0; i < q; i++)
+        {
+            cin >> a;
+            cin >> b;
+            if(mp[a] == 0)
+                mp[a] = in++;
+            if(mp[b] == 0)
+                mp[b] = in++;
+ 
+                v[mp[a]].push_back(mp[b]);
+ 
+           c[mp[b]]++;
+        }
+        bool x = Top_sort(in - 1);
+ 
+        if(x == true)
+            printf("Case %d: Yes\n",o);
+        else
+            printf("Case %d: No\n",o);
+ 
+      mp.clear();
+      for(int i = 1; i <= in; i++)
+        v[i].clear();
+ 
+    }
+}
