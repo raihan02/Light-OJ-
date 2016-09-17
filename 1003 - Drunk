@@ -1,3 +1,11 @@
+/*
+Name:  Raihan Chowdhury 
+   International Islamic University Chittagong 
+   Email:  raihanraju02@gmail.com
+   Problem: Graph (lightoj 1003)
+  comment: Topological Sort test by finding cycle
+  
+*/
 #include <bits/stdc++.h>
 using namespace std;
 vector<int> v[10005];
