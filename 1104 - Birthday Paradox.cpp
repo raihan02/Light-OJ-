@@ -11,18 +11,20 @@ int main()
         o++;
         int x;
         cin >> x;
-        double ans = 1.0;
+        double ans = 1.0, p;
         int i;
-        for( i = 1;; i++)
+        int cnt = 0;
+        for( i = x;; i--)
         {
-
-            ans *= (double)(x-i)/(x);
-            //cout<< ans << endl;
-             if(ans <= 0.5)
+            ans *= (double)(i)/(x);
+            p = (1 - ans);
+            cnt++;
+            if(p >= 0.50)
                 break;
 
         }
-       printf("Case %d: %d\n", o, i);
+        //cout<< ans << endl;
+       printf("Case %d: %d\n", o, cnt-1);
 
     }
 }
